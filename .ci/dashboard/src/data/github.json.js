@@ -1,7 +1,7 @@
 import { Octokit } from "octokit";
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
+  auth: Bun.env.GITHUB_TOKEN,
 });
 
 let pulls = await octokit.rest.pulls.list({

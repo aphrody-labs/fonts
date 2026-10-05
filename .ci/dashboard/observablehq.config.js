@@ -1,9 +1,9 @@
 // See https://observablehq.com/framework/config for documentation.
 import { readdirSync, readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 
-const here = dirname(fileURLToPath(import.meta.url));
+// The dashboard runs on Bun only (see package.json scripts).
+const here = import.meta.dir;
 const srcDir = join(here, "src");
 const standaloneDir = join(here, ".."); // .ci/ — where the standalone HTML lives
 
@@ -47,6 +47,11 @@ export default {
   output: "build", // path to the output root for build
   preserveExtension: true,
   style: "style.css",
+  // Run JavaScript and TypeScript data loaders with Bun instead of node/tsx.
+  interpreters: {
+    ".js": ["bun"],
+    ".ts": ["bun"],
+  },
   // Explicit sidebar navigation. Defining `pages` replaces Framework's
   // auto-generated sidebar, so we rebuild the Markdown pages list (above) and
   // then append the standalone HTML pages. `pager: null` on the section marks

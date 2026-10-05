@@ -62,12 +62,12 @@ jobs:
           SANDBOX_PASSWORD: ${{ secrets.SB_PASSWORD }}
         working-directory: .ci/dashboard
       # Now build the dashboard
-      - name: Install Node.js
-        uses: actions/setup-node@v6
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: "20"
+          bun-version: latest
       - name: Install dependencies
-        run: npm install
+        run: bun install --frozen-lockfile
         working-directory: .ci/dashboard
       - name: Generate report
         env:
@@ -78,7 +78,7 @@ jobs:
           GF_PATH: /home/runner/work/fonts/fonts
           GF_REPO_PATH: /home/runner/work/fonts/fonts
         run: |
-          npm run build
+          bun run build
           cp ../tags.html build/tags.html
           curl https://fonts.google.com/metadata/fonts > build/family_data.json
           cp ../*.html build/

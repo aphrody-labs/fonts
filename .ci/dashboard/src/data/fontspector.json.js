@@ -125,4 +125,4 @@ const results = {
   latestResult,
 };
 
-process.stdout.write(JSON.stringify(results));
+await Bun.write(Bun.stdout, JSON.stringify(results));
